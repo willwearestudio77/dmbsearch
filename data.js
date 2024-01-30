@@ -241,6 +241,22 @@ const data = [
         ]
     },
     {
+        name: "Ear Piercing", slug: "ear-piercing", href: "/services/ear-piercing", searchTerms: [
+            "ear piercing",
+            "earlobe piercing",
+            "ear jewelry",
+            "Ear Piercing Aftercare",
+        ]
+    },
+    {
+        name: "Ear Ache", slug: "earache", href: "/services/earache", searchTerms: [
+            "ear ache",
+            "ear pain",
+            "ear discomfort",
+            "earache",
+        ]
+    },
+    {
         name: "Domestic Violence Help", slug: "domestic-violence-help", href: "/services/domestic-violence-help", searchTerms: [
             "domestic violence help",
             "abuse support",
