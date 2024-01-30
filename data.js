@@ -7,6 +7,15 @@ const data = [
         ]
     },
     {
+        name: "Asthma", slug: "asthma", href: "/services/asthma", searchTerms: [
+            "asthma",
+            "respiratory health",
+            "breathing problems",
+            "Inhalers",
+            "Ventolin",
+        ]
+    },
+    {
         name: "General Sickness", slug: "general-sickness", href: "/services/general-sickness-and-pain", searchTerms: [
             "general sickness",
             "common illnesses",
@@ -82,6 +91,15 @@ const data = [
         ]
     },
     {
+        name: "Shingles", slug: "shingles", href: "/services/shingles", searchTerms: [
+            "shingles",
+            "herpes zoster",
+            "shingles vaccine",
+            "shingles treatment",
+            "shingles rash",
+        ]
+    },
+    {
         name: "Book Vaccinations", slug: "book-vaccinations", href: "/services/book-vaccinations", searchTerms: [
             "book vaccinations",
             "schedule vaccinations",
@@ -126,7 +144,9 @@ const data = [
         name: "Yellow Fever Vaccination", slug: "yellow-fever-vaccination", href: "/services/yellow-fever-vaccination", searchTerms: [
             "yellow fever vaccination",
             "travel vaccinations",
-            "tropical disease prevention"
+            "tropical disease prevention",
+            "Yellow Fever",
+            "Yellow Fever Certificate",
         ]
     },
     {
@@ -166,10 +186,12 @@ const data = [
         ]
     },
     {
-        name: "Weight Management", slug: "weight-management", href: "/services/weight-management", searchTerms: [
+        name: "Weight Management", slug: "weight", href: "/services/weight", searchTerms: [
             "weight management",
             "healthy weight",
-            "weight control"
+            "weight control",
+            "weight loss",
+            "weight gain",
         ]
     },
     {
@@ -241,6 +263,16 @@ const data = [
         ]
     },
     {
+        name: "Ear Consultation", slug: "ear-consultation", href: "/services/ear-consultation", searchTerms: [
+            "ear services",
+            "hearing health",
+            "ear testing",
+            "audiological care",
+            "ear consultation",
+            "ear health",
+        ]
+    },
+    {
         name: "Ear Piercing", slug: "ear-piercing", href: "/services/ear-piercing", searchTerms: [
             "ear piercing",
             "earlobe piercing",
@@ -254,6 +286,26 @@ const data = [
             "ear pain",
             "ear discomfort",
             "earache",
+        ]
+    },
+    {
+        name: "UTI", slug: "uti", href: "/services/uti", searchTerms: [
+            "UTI",
+            "urinary tract infection",
+            "bladder infection",
+            "cystitis",
+            "UTI treatment",
+            "UTI prevention",
+        ]
+    },
+    {
+        name: "Infected Insect Bites", slug: "infected-insect-bites", href: "/services/infected-insect-bites", searchTerms: [
+            "infected insect bites",
+            "insect bite treatment",
+            "insect bite infection",
+            "insect bite prevention",
+            "insect bite care",
+            "insect bite first aid",
         ]
     },
     {
