@@ -316,42 +316,65 @@ const data = [
         ]
     }
 ];
-
 document.addEventListener("DOMContentLoaded", function() {
-const searchInput = document.getElementById("searchInput");
-const searchResults = document.getElementById("searchResults");
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === "childList") {
+                const searchInput = document.getElementById("searchInput");
+                if (searchInput) {
+                    initSearch();
+                    observer.disconnect(); // Optional: disconnect observer if you only need to initialize once
+                }
+            }
+        });
+    });
 
-searchInput.addEventListener("input", function () {
-    const searchTerm = searchInput.value.toLowerCase().trim();
+    // Configuration of the observer:
+    const config = { attributes: true, childList: true, subtree: true };
 
-    if (!searchTerm) {
-        searchResults.style.display = "none";
-        return;
-    }
+    // Select the target node to observe
+    const target = document.body; // Adjust if you can be more specific
 
-    const filteredResults = data.filter(item =>
-        item.searchTerms.some(term => term.includes(searchTerm))
-    );
+    // Start observing
+    observer.observe(target, config);
 
-    displayResults(filteredResults.slice(0, 3));
-});
+    function initSearch() {
+        const searchInput = document.getElementById("searchInput");
+        const searchResults = document.getElementById("searchResults");
+        const noResults = document.getElementById("noResults"); // Ensure this is defined if used in displayResults
 
-function displayResults(results) {
-    if (results.length > 0) {
-        searchResults.innerHTML = "";
-        results.forEach(result => {
-            const resultItem = document.createElement("a");
-            resultItem.classList.add("result-item");
-            resultItem.textContent = result.name;
-            resultItem.href = result.href;
-            searchResults.appendChild(resultItem);
+        searchInput.addEventListener("input", function () {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            if (!searchTerm) {
+                searchResults.style.display = "none";
+                return;
+            }
+
+            const filteredResults = data.filter(item =>
+                item.searchTerms.some(term => term.includes(searchTerm))
+            );
+
+            displayResults(filteredResults.slice(0, 3));
         });
 
-        searchResults.style.display = "block";
-        noResults.style.display = "none"; // Hide noResults div
-    } else {
-        searchResults.style.display = "none";
-        noResults.style.display = "flex"; // Display noResults div
+        function displayResults(results) {
+            if (results.length > 0) {
+                searchResults.innerHTML = "";
+                results.forEach(result => {
+                    const resultItem = document.createElement("a");
+                    resultItem.classList.add("result-item");
+                    resultItem.textContent = result.name;
+                    resultItem.href = result.href;
+                    searchResults.appendChild(resultItem);
+                });
+
+                searchResults.style.display = "block";
+                noResults.style.display = "none";
+            } else {
+                searchResults.style.display = "none";
+                noResults.style.display = "flex";
+            }
+        }
     }
-}
 });
