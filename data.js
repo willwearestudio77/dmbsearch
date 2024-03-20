@@ -317,50 +317,49 @@ const data = [
     }
 ];
 document.addEventListener("DOMContentLoaded", function() {
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) {
-            if (mutation.type === "childList") {
-                const searchInput = document.getElementById("searchInput");
+    function setUpSearchWhenAvailable() {
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) {
+            // If searchInput exists, initialize search functionality
+            initSearch(searchInput);
+        } else {
+            // If searchInput doesn't exist yet, use MutationObserver to wait for its addition to the DOM
+            const observer = new MutationObserver(function(mutations, obs) {
+                const searchInput = document.getElementById('searchInput');
                 if (searchInput) {
-                    initSearch();
-                    observer.disconnect(); // Optional: disconnect observer if you only need to initialize once
+                    initSearch(searchInput);
+                    obs.disconnect(); // Stop observing once we've initialized the search functionality
                 }
-            }
-        });
-    });
+            });
 
-    // Configuration of the observer:
-    const config = { attributes: true, childList: true, subtree: true };
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+    }
 
-    // Select the target node to observe
-    const target = document.body; // Adjust if you can be more specific
-
-    // Start observing
-    observer.observe(target, config);
-
-    function initSearch() {
-        const searchInput = document.getElementById("searchInput");
+    function initSearch(searchInput) {
         const searchResults = document.getElementById("searchResults");
-        const noResults = document.getElementById("noResults"); // Ensure this is defined if used in displayResults
+        const noResults = document.getElementById("noResults");
 
-        searchInput.addEventListener("input", function () {
+        searchInput.addEventListener("input", function() {
             const searchTerm = searchInput.value.toLowerCase().trim();
-
+            searchResults.style.display = searchTerm ? "block" : "none";
             if (!searchTerm) {
-                searchResults.style.display = "none";
                 return;
             }
 
             const filteredResults = data.filter(item =>
-                item.searchTerms.some(term => term.includes(searchTerm))
+                item.searchTerms.some(term => term.toLowerCase().includes(searchTerm))
             );
 
             displayResults(filteredResults.slice(0, 3));
         });
 
         function displayResults(results) {
+            searchResults.innerHTML = "";
             if (results.length > 0) {
-                searchResults.innerHTML = "";
                 results.forEach(result => {
                     const resultItem = document.createElement("a");
                     resultItem.classList.add("result-item");
@@ -368,13 +367,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     resultItem.href = result.href;
                     searchResults.appendChild(resultItem);
                 });
-
-                searchResults.style.display = "block";
                 noResults.style.display = "none";
             } else {
-                searchResults.style.display = "none";
                 noResults.style.display = "flex";
             }
         }
     }
+
+    setUpSearchWhenAvailable();
 });
